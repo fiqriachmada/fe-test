@@ -53,23 +53,11 @@ const apiFetch: ApiFetchType = async <T>(
   }
 
   let body: string | FormData | undefined;
-  // if (data) {
-  //   if (data instanceof FormData) {
-  //     body = data;
-  //     finalHeaders.delete("Content-Type");
-  //   } else {
-  //     body = JSON.stringify(data);
-  //     if (!finalHeaders.has("Content-Type")) {
-  //       finalHeaders.set("Content-Type", "application/json");
-  //     }
-  //   }
-  // }
+
   if (data) {
     const userHasContentType = [...finalHeaders.entries()].some(
       ([key]) => key.toLowerCase() === "content-type"
     );
-
-    console.log('userHasContentType', userHasContentType)
 
     if (data instanceof FormData) {
       body = data;
@@ -83,7 +71,6 @@ const apiFetch: ApiFetchType = async <T>(
       }
     }
   }
-  
 
   const response = await fetch(url.toString(), {
     method,
@@ -92,9 +79,7 @@ const apiFetch: ApiFetchType = async <T>(
     ...rest,
   });
 
-  // Tambahkan pengecekan di sini
   if (!response.ok) {
-    // Optional: coba parse isi error-nya jika response-nya JSON
     let errorMessage = `HTTP error ${response.status}`;
     try {
       const errorData = await response.json();

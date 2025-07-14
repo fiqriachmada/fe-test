@@ -1,6 +1,5 @@
 "use client";
 
-import { useLogin } from "@/hooks/login/index/useLogin";
 import { Button } from "@mui/material";
 
 import { usePathname } from "next/navigation";
@@ -11,7 +10,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 export function Sidebar({ onToggle }: { onToggle: () => void }) {
   const pathname = usePathname();
-  const { logout } = useLogin();
 
   const isActive = (item: any) => {
     if (pathname === item.href) return true;
@@ -108,15 +106,6 @@ export function Sidebar({ onToggle }: { onToggle: () => void }) {
         ))} */}
       </nav>
 
-      {/* <div className="border-t p-4 shrink-0">
-        <Button
-          variant="outlined"
-          className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
-          onClick={logout}>
-          <LogoutIcon className="mr-2 h-4 w-4" />
-          {"Logout"}
-        </Button>
-      </div> */}
     </div>
   );
 }
