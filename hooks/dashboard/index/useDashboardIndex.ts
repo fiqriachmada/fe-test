@@ -7,11 +7,11 @@ import {
 } from "@/types/dashboard/dashboard-types";
 
 function useDashboardIndex() {
-  const { date } = useDashboardFilterStore();
+  const { date, total } = useDashboardFilterStore();
 
   const dateString = date?.format("YYYY-MM-DD");
 
-  const dashboard = useGetDashboard({ tanggal: dateString });
+  const dashboard = useGetDashboard({ tanggal: dateString, limit: total });
 
   const processPaymentMethodData = ({
     data,

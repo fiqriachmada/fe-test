@@ -37,7 +37,7 @@ function DashboardPageIndex({}: Props) {
       </div>
 
       <div className="my-4">
-        <DashboardFilter></DashboardFilter>
+        <DashboardFilter data={data}/>
       </div>
       <div className="space-y-6">
         <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
