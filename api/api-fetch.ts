@@ -27,7 +27,7 @@ interface ApiFetchType {
   ) => Promise<T>;
   delete: <T = any>(
     endpoint: string,
-    options?: Omit<ApiFetchOptions, "method" | "data">
+    options?: Omit<ApiFetchOptions, "method">
   ) => Promise<T>;
 }
 
@@ -115,9 +115,20 @@ apiFetch.put = function <T = any>(
   return apiFetch<T>(endpoint, { ...options, method: "PUT" });
 };
 
+// apiFetch.delete = function <T = any>(
+//   endpoint: string,
+//   options: Omit<ApiFetchOptions, "method" | "data"> = {}
+// ) {
+//   return apiFetch<T>(endpoint, { ...options, method: "DELETE" });
+// };
+
+// apiFetch.delete = function <T = any>(
+//   endpoint: string,
+//   options: Omit<ApiFetchOptions, "method"> = {}
+// )
 apiFetch.delete = function <T = any>(
   endpoint: string,
-  options: Omit<ApiFetchOptions, "method" | "data"> = {}
+  options: Omit<ApiFetchOptions, "method"> = {}
 ) {
   return apiFetch<T>(endpoint, { ...options, method: "DELETE" });
 };
