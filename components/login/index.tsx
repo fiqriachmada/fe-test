@@ -33,9 +33,9 @@ export default function LoginIndexPage() {
         <div className="w-full max-w-md space-y-8">
           {/* App Logo */}
           <div className="flex justify-center">
-            <div className="w-38 h-32 border-2 border-gray-300 flex items-center justify-center bg-gray-50">
+            <div className="w-38 h-32 border-2 rounded-3xl border-gray-300 flex items-center justify-center bg-gray-50">
               <Image
-                src="/placeholder.svg?height=128&width=192"
+                src="/logo.png"
                 alt="App Logo"
                 width={192}
                 height={128}
@@ -101,19 +101,19 @@ export default function LoginIndexPage() {
       <div className="hidden lg:flex flex-1 items-center justify-center bg-gray-100 relative">
         <div className="w-full h-full flex items-center justify-center">
           <Image
-            src="/placeholder.svg?height=600&width=600"
+            src="/login-jm.jpeg"
             alt="App Illustration/Background"
             width={800}
             height={600}
-            className="max-w-full max-h-full object-contain"
+            className="max-w-full max-h-auto object-fill"
             priority
           />
         </div>
-        <div className="absolute inset-0 flex items-center justify-center">
+        {/* <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-2xl font-medium text-gray-600 bg-white/80 px-4 py-2 rounded-lg">
             App Illustration/Background
           </span>
-        </div>
+        </div> */}
       </div>
 
       {/* Mobile Background - Hidden on larger screens */}

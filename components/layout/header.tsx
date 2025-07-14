@@ -10,9 +10,9 @@ export function Header({ onToggle }: { onToggle: () => void }) {
       <div className="flex items-center gap-4">
         <div className="flex items-center">
           <Image
-            src="/logo/logo.svg"
+            src="/logo.png"
             alt="Octopoda logo"
-            className="h-20 w-20 dark:filter dark:invert"
+            className="h-auto w-24 dark:filter dark:invert"
             width={300}
             height={300}
           />

@@ -37,18 +37,18 @@ export function Sidebar({ onToggle }: { onToggle: () => void }) {
 
   return (
     <div className="h-full w-[280px] backdrop-blur-lg border-r flex flex-col overflow-hidden">
-      <div className="p-6 flex items-center justify-between border-b shrink-0">
+      {/* <div className="p-6 flex items-center justify-between border-b shrink-0"> */}
         {/* <h1 className="text-xl font-bold">
           {t?.adminShared?.sidebar?.title || "Admin Panel"}
         </h1> */}
-        <Button
+        {/* <Button
           variant="outlined"
           size="small"
           onClick={onToggle}
           className="lg:flex hidden">
           <ChevronLeftIcon className="h-5 w-5" />
-        </Button>
-      </div>
+        </Button> */}
+      {/* </div> */}
 
       {/* User Profile Section */}
       {/* <UserProfile onLogout={logout} /> */}
