@@ -87,7 +87,7 @@ export default function LoginIndexPage() {
               variant="outlined"
               disabled={isPendingLogin}
               onClick={() => {
-                console.log('login', username)
+                console.log("login", username);
                 handleOnClickLogin({ username, password });
               }}
               className="w-full bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-md transition-colors duration-200">
@@ -101,7 +101,8 @@ export default function LoginIndexPage() {
       <div className="hidden lg:flex flex-1 items-center justify-center bg-gray-100 relative">
         <div className="w-full h-full flex items-center justify-center">
           <Image
-            src="/login-jm.jpeg"
+            // src="/login-jm.jpeg"
+            src="/logo.png"
             alt="App Illustration/Background"
             width={800}
             height={600}
