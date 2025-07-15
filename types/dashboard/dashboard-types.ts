@@ -39,6 +39,9 @@ export interface Row {
   eMega: number;
   eFlo: number;
   grandTotal: number;
+  ktp: number;
+  etoll: number;
+  umum: number;
 }
 
 export interface PaymentMethodData {

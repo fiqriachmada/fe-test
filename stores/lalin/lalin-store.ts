@@ -23,6 +23,9 @@ export interface DataRow {
   eMega: number;
   eFlo: number;
   grandTotal: number;
+  ktp: number;
+  etoll: number;
+  umum: number;
 }
 
 export interface PaymentMethod {
@@ -86,25 +89,62 @@ export const useLalinStore = create<LalinState>((set, get) => ({
       visible: true,
     },
     {
+      id: "ktp",
+      name: "KTP",
+      key: "ktp",
+      color: "#3f51b5",
+      visible: true,
+    },
+    {
+      id: "etoll",
+      name: "E Toll",
+      key: "etoll",
+      color: "#ff9800",
+      visible: true,
+    },
+    {
+      id: "eFlo",
+      name: "e-Flo",
+      key: "eFlo",
+      color: "#3f51b5",
+      visible: true,
+    },
+
+    {
+      id: "umum",
+      name: "E Toll, Flo, Tunai",
+      key: "umum",
+      color: "#2196f3",
+      visible: true,
+    },
+
+    {
+      id: "grandTotal",
+      name: "Total Keseluruhan",
+      key: "grandTotal",
+      color: "#3f51b5",
+      visible: true,
+    },
+    {
       id: "dinasOpr",
       name: "Dinas Operator",
       key: "DinasOpr",
       color: "#ff9800",
-      visible: true,
+      visible: false,
     },
     {
       id: "dinasMitra",
       name: "Dinas Mitra",
       key: "DinasMitra",
       color: "#f44336",
-      visible: true,
+      visible: false,
     },
     {
       id: "dinasKary",
       name: "Dinas Karyawan",
       key: "DinasKary",
       color: "#9c27b0",
-      visible: true,
+      visible: false,
     },
     {
       id: "eMandiri",
@@ -154,20 +194,6 @@ export const useLalinStore = create<LalinState>((set, get) => ({
       key: "eMega",
       color: "#ff5722",
       visible: false,
-    },
-    {
-      id: "eFlo",
-      name: "e-Flo",
-      key: "eFlo",
-      color: "#3f51b5",
-      visible: true,
-    },
-    {
-      id: "grandTotal",
-      name: "Total Keseluruhan",
-      key: "grandTotal",
-      color: "#3f51b5",
-      visible: true,
     },
   ],
   setSearchCount(count) {

@@ -34,49 +34,64 @@ const PaymentDataTableLalin: React.FC = () => {
 
   const activeMethod = paymentMethods.find((pm) => pm.id === activeTab);
 
-  const paymentKey = activeMethod?.key || "eMandiri";
+  const clusterMap: Record<string, string[]> = {
+    ktp: ["dinasKary", "dinasMitra", "dinasOpr"],
+    etoll: ["eBca", "eBni", "eBri", "eDKI", "eMandiri", "eMega", "eNobu"],
+    flo: ["eFlo"],
+    tunai: ["tunai"],
+    umum: [
+      "tunai",
+      "eFlo",
+      "eBca",
+      "eBni",
+      "eBri",
+      "eDKI",
+      "eMandiri",
+      "eMega",
+      "eNobu",
+    ], // ⬅️ ini tambahan penting
+  };
 
-  // const pivotData = useMemo(() => {
-  //   const map = new Map<string, any>();
+  const selectedKeys = useMemo(() => {
+    // Ambil semua metode yang ada di DataRow (bukan cluster)
+    const baseMethods = paymentMethods.filter((pm) =>
+      [
+        "Tunai",
+        "DinasOpr",
+        "DinasMitra",
+        "DinasKary",
+        "eMandiri",
+        "eBri",
+        "eBni",
+        "eBca",
+        "eNobu",
+        "eDKI",
+        "eMega",
+        "eFlo",
+      ].includes(pm.key)
+    );
 
-  //   filteredData?.forEach((row) => {
-  //     const key = `${row.Tanggal}-${row.Shift}-${row.IdCabang}-${row.IdGerbang}-${row.IdGardu}`;
-  //     if (!map.has(key)) {
-  //       map.set(key, {
-  //         Tanggal: row.Tanggal,
-  //         Shift: row.Shift,
-  //         IdCabang: row.IdCabang,
-  //         IdGerbang: row.IdGerbang,
-  //         IdGardu: row.IdGardu,
-  //         paymentMethods: activeMethod?.name,
-  //         methodTotal: 0,
-  //         Gol1: 0,
-  //         Gol2: 0,
-  //         Gol3: 0,
-  //         Gol4: 0,
-  //         Gol5: 0,
-  //       });
-  //     }
+    if (activeTab === "grandTotal") {
+      return baseMethods.map((pm) => pm.key);
+    }
 
-  //     const item = map.get(key);
-  //     const value = row[paymentKey] as string || 0;
-  //     item[`Gol${row.Golongan}`] += value;
-  //     item.methodTotal += value;
-  //   });
+    const clusterKeys = clusterMap[activeTab.toLowerCase()];
+    if (clusterKeys) {
+      return clusterKeys
+        .map((id) => paymentMethods.find((m) => m.id === id)?.key)
+        .filter(Boolean) as string[];
+    }
 
-  //   return Array.from(map.values());
-  // }, [filteredData, paymentKey]);
+    const method = paymentMethods.find((pm) => pm.id === activeTab);
+    return method ? [method.key] : [];
+  }, [activeTab, paymentMethods]);
 
   const pivotData = useMemo(() => {
     const map = new Map<string, any>();
 
-    // Ambil metode pembayaran visible yang bukan grandTotal
-    const visiblePaymentKeys = paymentMethods
-      .filter((pm) => pm.visible && pm.id !== "grandTotal")
-      .map((pm) => pm.key);
-
     filteredData?.forEach((row) => {
       const key = `${row.Tanggal}-${row.Shift}-${row.IdCabang}-${row.IdGerbang}-${row.IdGardu}`;
+
       if (!map.has(key)) {
         map.set(key, {
           Tanggal: row.Tanggal,
@@ -84,8 +99,8 @@ const PaymentDataTableLalin: React.FC = () => {
           IdCabang: row.IdCabang,
           IdGerbang: row.IdGerbang,
           IdGardu: row.IdGardu,
-          paymentMethods: activeMethod?.name,
           methodTotal: 0,
+          paymentMethods: activeMethod?.name,
           Gol1: 0,
           Gol2: 0,
           Gol3: 0,
@@ -96,24 +111,19 @@ const PaymentDataTableLalin: React.FC = () => {
 
       const item = map.get(key);
 
-      if (activeTab === "grandTotal") {
-        // Jika total keseluruhan, jumlahkan semua metode pembayaran yang visible
-        visiblePaymentKeys.forEach((key) => {
-          const value = row[key] || 0;
-          item[`Gol${row.Golongan}`] += value;
+      selectedKeys.forEach((key) => {
+        const value = Number((row as any)[key] || 0);
+        const golonganKey = `Gol${row.Golongan}`;
+        if (item[golonganKey] !== undefined) {
+          item[golonganKey] += value;
           item.methodTotal += value;
-        });
-      } else {
-        // Default: berdasarkan metode aktif
-        const value = row[paymentKey] || 0;
-        item[`Gol${row.Golongan}`] += value;
-        item.methodTotal += value;
-      }
+        }
+      });
     });
 
     return Array.from(map.values());
-  }, [filteredData, paymentKey, activeTab, paymentMethods]);
-  
+  }, [filteredData, selectedKeys]);
+
   const paginatedData = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
     return pivotData.slice(start, start + itemsPerPage);
