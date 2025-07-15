@@ -28,6 +28,10 @@ function useLogin() {
 
     password: string;
   }) => {
+    if (!username.trim() || !password) {
+      toast.error("Mohon isi username dan password.");
+      return;
+    }
     await getLogin.mutate(
       { data: { password, username: username.trim() } },
       {
