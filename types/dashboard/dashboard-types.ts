@@ -38,6 +38,7 @@ export interface Row {
   eDKI: number;
   eMega: number;
   eFlo: number;
+  grandTotal: number;
 }
 
 export interface PaymentMethodData {
