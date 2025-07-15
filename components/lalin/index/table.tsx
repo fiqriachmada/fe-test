@@ -49,11 +49,10 @@ const PaymentDataTableLalin: React.FC = () => {
       "eMandiri",
       "eMega",
       "eNobu",
-    ], // ⬅️ ini tambahan penting
+    ],
   };
 
   const selectedKeys = useMemo(() => {
-    // Ambil semua metode yang ada di DataRow (bukan cluster)
     const baseMethods = paymentMethods.filter((pm) =>
       [
         "Tunai",
