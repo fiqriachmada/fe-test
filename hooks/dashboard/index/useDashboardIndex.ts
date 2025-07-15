@@ -1,3 +1,4 @@
+"use client";
 import { useDashboardFilterStore } from "@/stores/dashboard/dashboard-filter";
 import { useGetDashboard } from "../useGetDashboard";
 import {
@@ -5,9 +6,10 @@ import {
   Row,
   ShiftData,
 } from "@/types/dashboard/dashboard-types";
+import { useEffect } from "react";
 
 function useDashboardIndex() {
-  const { date, total } = useDashboardFilterStore();
+  const { date, total, setTotal } = useDashboardFilterStore();
 
   const dateString = date?.format("YYYY-MM-DD");
 

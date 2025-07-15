@@ -6,10 +6,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import React from "react";
-import { useGatesDeleteStore } from "@/stores/gates/gates-delete-store";
+
 import { Row } from "@/types/gates/gates-types";
 import { useDeleteGates } from "@/hooks/gates/useDeleteGates";
 import { toast } from "react-toastify";
+import { useGatesActionSelectStore } from "@/stores/gates/gates-action-store";
 
 type Props = {
   handleClickOpen: ({ row }: { row?: Row }) => void;
@@ -17,7 +18,7 @@ type Props = {
 };
 
 function ModalDelete({ handleClickOpen, handleClose }: Props) {
-  const { open, row } = useGatesDeleteStore();
+  const { open, row } = useGatesActionSelectStore();
 
   const { mutate } = useDeleteGates();
 
@@ -38,7 +39,7 @@ function ModalDelete({ handleClickOpen, handleClose }: Props) {
   return (
     <div>
       <React.Fragment>
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open!} onClose={handleClose}>
           <DialogTitle>Yakin untuk menghapus?</DialogTitle>
           <DialogContent sx={{ paddingBottom: 0 }}>
             <DialogContentText>

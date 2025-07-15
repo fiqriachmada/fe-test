@@ -1,3 +1,5 @@
+"use client";
+
 import { toast } from "react-toastify";
 import { useGetLogin } from "../useGetLogin";
 import { useLoginStore } from "@/stores/login/login-stores";
@@ -18,8 +20,6 @@ function useLogin() {
     isAuthenticated,
   } = useAuthStore();
 
-  console.log("isAuthenticated", isAuthenticated);
-
   const handleOnClickLogin = async ({
     username,
     password,
@@ -39,6 +39,8 @@ function useLogin() {
           setAuth({ accessToken: token, user: { username } });
           toast.success("Login Berhasil");
           resetLoginStore();
+
+          router.push("/dashboard");
         },
       }
     );
@@ -47,7 +49,7 @@ function useLogin() {
 
   const logout = () => {
     resetAuthStore();
-    resetLoginStore()
+    resetLoginStore();
     router.push("/");
     return;
   };
@@ -71,11 +73,11 @@ function useLogin() {
     return () => clearInterval(interval);
   }, [timestamp, resetLoginStore]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/dashboard");
-    }
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     router.push("/dashboard");
+  //   }
+  // }, [isAuthenticated]);
 
   return { ...getLogin, handleOnClickLogin, logout };
 }

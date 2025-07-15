@@ -1,12 +1,9 @@
 "use client";
 
-import { Button } from "@mui/material";
-
 import { usePathname } from "next/navigation";
 
 import { useEffect, useState } from "react";
-import LogoutIcon from "@mui/icons-material/Logout";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useRoutes } from "@/routes/routes";
 import Link from "next/link";

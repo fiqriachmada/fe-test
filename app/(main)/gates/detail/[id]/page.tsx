@@ -1,12 +1,12 @@
-import GatesPageIndex from "@/components/gates";
+import GatesPageDetail from "@/components/gates/detail";
 import React, { Suspense } from "react";
 
 type Props = {};
 
 function page({}: Props) {
   return (
-    <Suspense fallback={<></>}>
-      <GatesPageIndex />
+    <Suspense>
+      <GatesPageDetail />
     </Suspense>
   );
 }

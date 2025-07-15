@@ -1,13 +1,16 @@
-import Layout from '@/components/layout';
-import React from 'react'
+import Layout from "@/components/layout";
+import React, { Suspense } from "react";
 
-type Props = {}
-
+type Props = {};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <Layout>{children}</Layout>;
+  return (
+    <Suspense>
+      <Layout>{children}</Layout>
+    </Suspense>
+  );
 }

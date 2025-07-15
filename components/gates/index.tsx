@@ -1,10 +1,14 @@
 "use client";
+
 import { useGatesIndex } from "@/hooks/gates/index/useGatesIndex";
 import { ITEMS_PER_PAGE } from "@/lib/constants/item-per-page";
 import { TablePagination } from "@mui/material";
 import React from "react";
 import TableGates from "./index/table";
 import ModalDelete from "./index/modal-delete";
+import ModalUpdate from "./index/modal-update";
+import GatesFilter from "./index/filter";
+import ModalCreate from "./index/modal-create";
 
 type Props = {};
 
@@ -18,10 +22,25 @@ function GatesPageIndex({}: Props) {
     page,
     handleClickOpen,
     handleClose,
+
+    handleClickOpenUpdate,
+    handleCloseUpdate,
+
+    handleCloseCreate,
+    handleClickOpenCreate,handleOnClickView
   } = useGatesIndex();
   return (
-    <div>
-      <TableGates data={data} handleClickOpen={handleClickOpen} />
+    <div className="space-y-4">
+      <GatesFilter
+        handleCloseCreate={handleCloseCreate}
+        handleClickOpenCreate={handleClickOpenCreate}
+      />
+      <TableGates
+        data={data}
+        handleClickOpen={handleClickOpen}
+        handleClickOpenUpdate={handleClickOpenUpdate}
+        handleOnClickView={handleOnClickView}
+      />
       <TablePagination
         rowsPerPageOptions={ITEMS_PER_PAGE}
         component="div"
@@ -52,6 +71,13 @@ function GatesPageIndex({}: Props) {
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       />
+
+      <ModalUpdate
+        handleClickOpenUpdate={handleClickOpenUpdate}
+        handleCloseUpdate={handleCloseUpdate}
+      />
+
+      <ModalCreate handleCloseCreate={handleCloseCreate} />
     </div>
   );
 }

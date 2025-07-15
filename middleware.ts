@@ -5,19 +5,7 @@ export function middleware(request: NextRequest) {
   const session = request.cookies.get('auth-storage')?.value;
 
   // List of protected routes
-  const protectedRoutes = [
-    '/dashboard',
-    // '/profile',
-    // '/settings',
-    // '/master-data/',
-    // '/delivery',
-    // '/delivery-order',
-    // '/purchasing-allotment',
-    // '/warehouse',
-    // '/finance',
-    // '/purchasing/',
-    // '/customer-orders',
-  ];
+  const protectedRoutes = ["/dashboard", "/gates"];
 
   // List of public routes that should redirect to dashboard if session exists
   const publicRoutes = ['/login'];
@@ -47,20 +35,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/',
-    '/login',
-    '/dashboard/:path*',
-    '/profile/:path*',
-    '/settings/:path*',
-    '/master-data/:path*',
-    '/delivery/:path*',
-    '/delivery-order/:path*',
-    '/purchasing-allotment/:path*',
-    '/warehouse/:path*',
-    '/finance/:path*',
-    '/customer-orders/:path*',
-    '/purchasing/:path*',
-    //
-  ],
+  matcher: ["/", "/login", "/dashboard/:path*", "/gates/:path*"],
 };

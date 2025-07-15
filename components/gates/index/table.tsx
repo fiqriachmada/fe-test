@@ -4,7 +4,7 @@ import {
   Delete as DeleteIcon,
   Visibility as ViewIcon,
 } from "@mui/icons-material";
-import { RootGates } from "@/types/gates/gates-types";
+import { RootGates, Row } from "@/types/gates/gates-types";
 import {
   Box,
   Chip,
@@ -24,9 +24,16 @@ type Props = {
 
   handleClickOpen: ({}: {}) => void;
   handleClose?: ({}: {}) => void;
+  handleClickOpenUpdate: ({}: {}) => void;
+  handleOnClickView: ({ row }: { row?: Row }) => void;
 };
 
-function TableGates({ data, handleClickOpen, handleClose }: Props) {
+function TableGates({
+  data,
+  handleClickOpen,
+  handleClickOpenUpdate,
+  handleOnClickView,
+}: Props) {
   const { page, total } = useGatesFilterStore();
   return (
     <div>
@@ -105,26 +112,26 @@ function TableGates({ data, handleClickOpen, handleClose }: Props) {
                 <TableCell>
                   <Box
                     sx={{ display: "flex", gap: 1, justifyContent: "center" }}>
-                    <Tooltip title="Lihat Detail">
-                      <IconButton
-                        size="small"
-                        // onClick={() => handleView(row)}
-                        sx={{
-                          color: "#1976d2",
-                          "&:hover": { backgroundColor: "#e3f2fd" },
-                        }}>
-                        <ViewIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
                     <Tooltip title="Edit">
                       <IconButton
                         size="small"
-                        // onClick={() => handleEdit(row)}
+                        onClick={() => handleClickOpenUpdate({ row })}
                         sx={{
                           color: "#ed6c02",
                           "&:hover": { backgroundColor: "#fff3e0" },
                         }}>
                         <EditIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Lihat Detail">
+                      <IconButton
+                        size="small"
+                        onClick={() => handleOnClickView({ row })}
+                        sx={{
+                          color: "#1976d2",
+                          "&:hover": { backgroundColor: "#e3f2fd" },
+                        }}>
+                        <ViewIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Hapus">

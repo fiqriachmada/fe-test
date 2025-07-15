@@ -9,6 +9,7 @@ interface GatesParams {
   page?: number;
   limit?: number;
   search?: string;
+  namaGerbang: string;
 }
 
 async function getGates({
@@ -16,13 +17,15 @@ async function getGates({
   page = 1,
   tanggal,
   search,
-}: GatesParams): Promise<RootGates> {
+  namaGerbang,
+}: Partial<GatesParams>): Promise<RootGates> {
   const searchParams = new URLSearchParams();
 
   if (page !== undefined) searchParams.set("page", String(page));
   if (limit !== undefined) searchParams.set("limit", String(limit));
   if (tanggal) searchParams.set("tanggal", tanggal);
   if (search) searchParams.set("search", search);
+  if (namaGerbang) searchParams.set("NamaGerbang", namaGerbang);
 
   const response = await apiFetch.get(
     `${GATES_PATH}?${searchParams.toString()}`
@@ -30,7 +33,7 @@ async function getGates({
   return response;
 }
 
-export function useGetGates(params: GatesParams) {
+export function useGetGates(params: Partial<GatesParams>) {
   const queryGetGates = useQuery({
     queryKey: ["gates", params],
     queryFn: () => getGates(params),
