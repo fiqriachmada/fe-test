@@ -15,17 +15,19 @@ export function Header({ onToggle }: { onToggle: () => void }) {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 h-[65px] px-4 flex items-center justify-between bg-transparent shadow-sm",
-        "backdrop-blur-xs"
+        "fixed top-0 left-0 right-0 z-50 h-[65px] px-4 flex items-center justify-between bg-transparent ",
+        "backdrop-blur-xs",
+        "hover:shadow-xl"
       )}>
       {/* Logo as Toggle */}
       <div
         className="flex items-center gap-2 cursor-pointer"
         onClick={onToggle}>
         <Image
-          src="/logo.png"
+          // src="/logo.png"
+          src="/logo-jm-transparent.png"
           alt="Logo"
-          className="h-auto w-24 dark:invert"
+          className="h-auto w-24"
           width={300}
           height={300}
         />

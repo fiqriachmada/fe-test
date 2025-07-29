@@ -1,15 +1,20 @@
 "use client";
-
 import { useLogin } from "@/hooks/login/index/useLogin";
 import { useLoginStore } from "@/stores/login/login-stores";
-import { Button, FormLabel, TextField } from "@mui/material";
+import {
+  Button,
+  FormLabel,
+  TextField,
+  InputAdornment,
+  CircularProgress,
+} from "@mui/material";
 import Image from "next/image";
 import { ChangeEvent } from "react";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Lock from "@mui/icons-material/Lock";
 
 export default function LoginIndexPage() {
-  const { username, password, timestamp, setUsername, setPassword, reset } =
-    useLoginStore();
-
+  const { username, password, setUsername, setPassword } = useLoginStore();
   const { handleOnClickLogin, isPending: isPendingLogin } = useLogin();
 
   const handleOnChange = ({
@@ -20,106 +25,87 @@ export default function LoginIndexPage() {
     type: string;
   }) => {
     const value = e.target.value;
-    if (type === "username") {
-      return setUsername(value);
-    }
+    if (type === "username") return setUsername(value);
     setPassword(value);
-    return;
   };
+
   return (
-    <div className="min-h-screen flex">
-      {/* Left Column - Login Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-white">
+    <div className="min-h-screen flex flex-col lg:flex-row">
+      {/* Left side (form) */}
+      <div className="flex-1 flex items-center justify-center bg-white px-6 py-12">
         <div className="w-full max-w-md space-y-8">
-          {/* App Logo */}
+          {/* Logo */}
           <div className="flex justify-center">
-            <div className="w-38 h-32 border-2 rounded-3xl border-gray-300 flex items-center justify-center bg-gray-50">
-              <Image
-                src="/logo.png"
-                alt="App Logo"
-                width={192}
-                height={128}
-                className="text-gray-500"
-              />
-            </div>
+            <Image
+              src="/logo-jm-transparent.png"
+              alt="Logo"
+              width={80}
+              height={80}
+              className="rounded-lg"
+            />
           </div>
 
-          {/* Login Form */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <FormLabel
-                htmlFor="username"
-                className="text-sm font-medium text-gray-700">
-                Username
-              </FormLabel>
-              <TextField
-                id="username"
-                value={username}
-                onChange={(e) => {
-                  handleOnChange({ e, type: "username" });
-                }}
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                placeholder="Enter your username"
-              />
-            </div>
+          {/* Form */}
+          <div className="flex flex-col gap-4">
+            <TextField
+              fullWidth
+              label="Username"
+              value={username}
+              onChange={(e) => handleOnChange({ e, type: "username" })}
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
 
-            <div className="space-y-2">
-              <FormLabel
-                htmlFor="password"
-                className="text-sm font-medium text-gray-700">
-                Password
-              </FormLabel>
-              <TextField
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  handleOnChange({ e, type: "password" });
-                }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                placeholder="Enter your password"
-              />
-            </div>
+            <TextField
+              fullWidth
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => handleOnChange({ e, type: "password" })}
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Lock />
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
 
             <Button
-              type="button"
-              variant="outlined"
+              fullWidth
+              variant="contained"
               disabled={isPendingLogin}
-              onClick={() => {
-                console.log("login", username);
-                handleOnClickLogin({ username, password });
-              }}
-              className="w-full bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-md transition-colors duration-200">
-              Login
+              onClick={() => handleOnClickLogin({ username, password })}
+              className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md"
+              startIcon={
+                isPendingLogin ? (
+                  <CircularProgress size={20} color="inherit" />
+                ) : null
+              }>
+              {isPendingLogin ? "Logging in..." : "Login"}
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Right Column - Illustration/Background */}
-      <div className="hidden lg:flex flex-1 items-center justify-center bg-gray-100 relative">
-        <div className="w-full h-full flex items-center justify-center">
-          <Image
-            // src="/login-jm.jpeg"
-            src="/logo.png"
-            alt="App Illustration/Background"
-            width={800}
-            height={600}
-            className="max-w-full max-h-auto object-fill"
-            priority
-          />
-        </div>
-        {/* <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-medium text-gray-600 bg-white/80 px-4 py-2 rounded-lg">
-            App Illustration/Background
-          </span>
-        </div> */}
-      </div>
-
-      {/* Mobile Background - Hidden on larger screens */}
-      <div className="lg:hidden absolute inset-0 -z-10">
-        <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100"></div>
+      {/* Right side */}
+      <div className="hidden lg:flex flex-1 bg-gray-100 items-center justify-center p-12">
+        <Image
+          src="/logo-jm-transparent.png"
+          alt="Big Logo"
+          width={400}
+          height={400}
+          className="object-contain"
+        />
       </div>
     </div>
   );
