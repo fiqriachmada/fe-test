@@ -37,7 +37,13 @@ export function Sidebar({ onToggle }: { onToggle: () => void }) {
   }
 
   return (
-    <div className="h-full w-[280px] backdrop-blur-lg border-r flex flex-col overflow-hidden">
+    <div
+      className={cn(
+        "h-full w-[280px] flex flex-col overflow-hidden",
+        "hover:shadow-2xl",
+        "backdrop-blur-xs"
+        // "backdrop-blur-lg"
+      )}>
       <nav className="flex-1 overflow-y-auto p-4 space-y-2 scrollbar-thin">
         {routes.map((item) => (
           <div key={item.href} className="space-y-1">
@@ -47,8 +53,8 @@ export function Sidebar({ onToggle }: { onToggle: () => void }) {
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
 
                 isActive({ item })
-                  ? "bg-yellow-300 text-primary-foreground"
-                  : "hover:bg-yellow-50"
+                  ? "bg-yellow-300 text-primary-foreground text-zinc-700"
+                  : "hover:bg-yellow-50 text-zinc-500"
               )}>
               {/* <item.icon className="h-4 w-4" /> */}
               {item.icon}

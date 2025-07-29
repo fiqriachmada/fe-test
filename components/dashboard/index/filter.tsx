@@ -15,7 +15,7 @@ function DashboardFilter({ data }: Props) {
   const { date, setDate, setTotal, total } = useDashboardFilterStore();
 
   return (
-    <div className="flex gap-4 items-center justify-between">
+    <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
       <div className="flex gap-4 items-center">
         <DatePicker
           label="Tanggal"
