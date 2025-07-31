@@ -7,10 +7,13 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useLogin } from "@/hooks/login/index/useLogin";
 import { useAuthStore } from "@/stores/login/auth-stores";
 import { cn } from "@/lib/utils";
+import useHeader from "@/hooks/dashboard/index/useHeader";
 
 export function Header({ onToggle }: { onToggle: () => void }) {
   const { logout } = useLogin();
   const { user } = useAuthStore();
+
+  useHeader();
 
   return (
     <header

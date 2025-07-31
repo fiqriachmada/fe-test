@@ -30,7 +30,10 @@ const PaymentDataTableLalin: React.FC = () => {
     paymentMethods,
     setCurrentPage,
     setItemsPerPage,
+    count,
   } = useLalinStore();
+
+  console.log("count", count);
 
   const activeMethod = paymentMethods.find((pm) => pm.id === activeTab);
 
@@ -224,7 +227,7 @@ const PaymentDataTableLalin: React.FC = () => {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[5, 10, 20, { label: "Semua", value: count }]}
         component="div"
         count={pivotData.length}
         rowsPerPage={itemsPerPage}

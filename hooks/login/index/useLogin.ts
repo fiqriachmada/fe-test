@@ -7,6 +7,14 @@ import { useEffect, useMemo } from "react";
 import { useAuthStore } from "@/stores/login/auth-stores";
 import useNextHooks from "@/hooks/useNextHooks";
 
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+
+type DecodedToken = {
+  exp: number;
+  // add other properties from your JWT payload if needed
+};
+
 function useLogin() {
   const { router } = useNextHooks();
   const getLogin = useGetLogin();
@@ -19,6 +27,8 @@ function useLogin() {
     user,
     isAuthenticated,
   } = useAuthStore();
+
+  const accessToken = Cookies.get(`auth-storage`);
 
   const handleOnClickLogin = async ({
     username,
@@ -51,6 +61,17 @@ function useLogin() {
     return;
   };
 
+  const formatRemainingTime = ({ ms }: { ms: number | null }) => {
+    if (ms === null) return "";
+
+    const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+    const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+    const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  };
+
   const logout = () => {
     resetAuthStore();
     resetLoginStore();
@@ -77,13 +98,13 @@ function useLogin() {
     return () => clearInterval(interval);
   }, [timestamp, resetLoginStore]);
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     router.push("/dashboard");
-  //   }
-  // }, [isAuthenticated]);
-
-  return { ...getLogin, handleOnClickLogin, logout };
+  return {
+    ...getLogin,
+    handleOnClickLogin,
+    logout,
+    accessToken,
+    formatRemainingTime,
+  };
 }
 
 export { useLogin };
