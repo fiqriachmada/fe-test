@@ -2,7 +2,6 @@ import { DataRow, PaymentMethod } from "@/stores/lalin/lalin-store";
 import { useCallback } from "react";
 import * as XLSX from "xlsx";
 
-
 export const useExcelExport = () => {
   const exportToExcel = useCallback(
     (
@@ -10,7 +9,6 @@ export const useExcelExport = () => {
       activeMethod: PaymentMethod,
       filename: string = "laporan-lalin"
     ) => {
-        
       // Format data for Excel
       const formattedData = data.map((row, index) => ({
         No: index + 1,
