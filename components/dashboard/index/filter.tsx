@@ -18,7 +18,8 @@ function DashboardFilter({ data }: Props) {
     <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
       <div className="flex gap-4 items-center">
         <DatePicker
-          label="Tanggal"
+          label="Pilih Tanggal"
+          format="DD/MM/YYYY"
           value={date}
           onChange={(newValue) => setDate({ date: newValue })}
         />

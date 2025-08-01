@@ -50,30 +50,6 @@ export const FilterLalin: React.FC = () => {
         Laporan Lalin Per Hari
       </Typography>
       <div className="grid grid-cols-4 gap-4 items-center">
-        {/* <div className="">
-          <TextField
-            fullWidth
-            size="small"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon color="action" />
-                </InputAdornment>
-              ),
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: 2,
-                "&:hover fieldset": {
-                  borderColor: "#1976d2",
-                },
-              },
-            }}
-          />
-        </div> */}
         <div className="">
           <DatePicker
             label="Pilih Tanggal"
@@ -81,6 +57,7 @@ export const FilterLalin: React.FC = () => {
             onChange={(date) =>
               setDateRange(dateRange.start, dayjs(date?.toDate()!) || null)
             }
+            format="DD/MM/YYYY" 
             slotProps={{
               textField: {
                 size: "small",
